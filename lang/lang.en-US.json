@@ -1,56 +1,6 @@
 {
     "data": {
         "displayEmbeds": {
-            "welcome": {
-                "title": "Thank you for using {{COM:bot.name}}!",
-                "description": ["{{REF:bot.description}}"],
-                "fields": [
-                    {
-                        "name": "Important {{REF:fields.commands}}",
-                        "value": ["{{CMD_LINK_HELP}} - {{REF:commandDescs.help}}"]
-                    },
-                    {
-                        "name": "{{REF:fields.links}}",
-                        "value": ["{{REF:links.docsEmbed}}", "{{REF:links.supportEmbed}}"]
-                    }
-                ]
-            },
-            "helpContactSupport": {
-                "title": "Help - {{REF:helpOptions.contactSupport}}",
-                "description": [
-                    "Have a question or feedback? Join our support server at the link below!"
-                ],
-                "fields": [
-                    {
-                        "name": "{{REF:fields.links}}",
-                        "value": ["{{REF:links.supportEmbed}}"]
-                    }
-                ]
-            },
-            "helpCommands": {
-                "title": "Help - {{REF:helpOptions.commands}}",
-                "fields": [
-                    {
-                        "name": "Commands",
-                        "value": [
-                            "To see the available commands, just type `/` and select the bot from the left side. You can then scroll through all available commands. Some commands may be hidden if you don't have permission to view them.",
-                            "",
-                            "{{CMD_LINK_TEST}} - {{REF:commandDescs.test}}",
-                            "{{CMD_LINK_INFO}} - {{REF:commandDescs.info}}"
-                        ]
-                    },
-                    {
-                        "name": "Command Permissions",
-                        "value": [
-                            "Want to restrict commands to certain roles, users, or channels? Set up permissions in the bot's integration page by going to **Server Settings** > **Integrations**, and then **Manage** for this bot."
-                        ]
-                    },
-                    {
-                        "name": "{{REF:fields.links}}",
-                        "value": ["{{REF:links.docsEmbed}}", "{{REF:links.supportEmbed}}"]
-                    }
-                ]
-            },
             "test": {
                 "description": "Test command works!"
             },
@@ -60,71 +10,14 @@
             "viewDateSent": {
                 "description": "This message was sent on {{DATE}}!"
             },
-            "about": {
-                "title": "{{COM:bot.name}} - About",
-                "description": "{{REF:bot.description}}",
-                "fields": [
-                    { "name": "Author", "value": "{{REF:links.authorEmbed}}" },
-                    {
-                        "name": "{{REF:fields.links}}",
-                        "value": [
-                            "{{REF:links.sourceEmbed}}",
-                            "{{REF:links.docsEmbed}}",
-                            "{{REF:links.termsEmbed}}",
-                            "{{REF:links.voteEmbed}}",
-                            "{{REF:links.donateEmbed}}",
-                            "{{REF:links.supportEmbed}}",
-                            "{{REF:links.inviteEmbed}}"
-                        ]
-                    },
-                    {
-                        "name": "Created With",
-                        "value": ["{{REF:links.templateEmbed}}"]
-                    }
-                ]
-            },
-            "translate": {
-                "title": "{{COM:bot.name}} - Translations",
-                "description": "Thank you to our translators who have made it possible for {{COM:bot.name}} to be used in the following languages. If you are interested in providing a translation, please contact the staff in our [support server]({{COM:links.support}})."
-            },
-            "devInfo": {
-                "title": "{{COM:bot.name}} - Developer Info",
-                "fields": [
-                    {
-                        "name": "Versions",
-                        "value": [
-                            "**Node.js**: {{NODE_VERSION}}",
-                            "**TypeScript**: {{TS_VERSION}}",
-                            "**ECMAScript**: {{ES_VERSION}}",
-                            "**discord.js**: {{DJS_VERSION}}"
-                        ]
-                    },
-                    {
-                        "name": "Stats",
-                        "value": [
-                            "**Shards**: {{SHARD_COUNT}}",
-                            "**Servers**: {{SERVER_COUNT}} ({{SERVER_COUNT_PER_SHARD}}/Shard)"
-                        ]
-                    },
-                    {
-                        "name": "Memory",
-                        "value": [
-                            "**RSS**: {{RSS_SIZE}} ({{RSS_SIZE_PER_SERVER}}/Server)",
-                            "**Heap**: {{HEAP_TOTAL_SIZE}} ({{HEAP_TOTAL_SIZE_PER_SERVER}}/Server)",
-                            "**Used**: {{HEAP_USED_SIZE}} ({{HEAP_USED_SIZE_PER_SERVER}}/Server)"
-                        ]
-                    },
-                    {
-                        "name": "IDs",
-                        "value": [
-                            "**Hostname**: {{HOSTNAME}}",
-                            "**Shard ID**: {{SHARD_ID}}",
-                            "**Server ID**: {{SERVER_ID}}",
-                            "**Bot ID**: {{BOT_ID}}",
-                            "**User ID**: {{USER_ID}}"
-                        ]
-                    }
-                ]
+            "avatar": {
+                "color": "{{COM:colors.default}}",
+                "description": ["{{MEMBER_AT}}", "```{{MEMBER_USER_TAG}} | {{MEMBER_NICKNAME}}```"],
+                "image": "{{AVATAR_IMG}}",
+                "footer": {
+                    "text": "{{MEMBER_USER_TAG}} | {{USER_ID}}"
+                },
+                "timestamp": "{{TIME_HOLDER}}"
             }
         },
         "validationEmbeds": {
@@ -175,6 +68,10 @@
             "notImplemented": {
                 "description": "This feature has not been implemented yet!",
                 "color": "{{COM:colors.warning}}"
+            },
+            "memberNotFound": {
+                "description": "The specified member was not found in this guild. Try a different method of searching if you can still locate said user.",
+                "color": "{{COM:colors.error}}"
             }
         },
         "channelRegexes": {
@@ -189,10 +86,8 @@
             "description": "{{REF:links.templateEmbed}} helps give developers a starting point for new Discord bots, so that much of the initial setup can be avoided and developers can instead focus on meaningful bot features."
         },
         "chatCommands": {
-            "dev": "dev",
-            "help": "help",
-            "info": "info",
-            "test": "test"
+            "test": "test",
+            "showAvatar": "avatar"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -208,7 +103,8 @@
             "dev": "Developer use only.",
             "help": "Find help or contact support.",
             "info": "View bot info.",
-            "test": "Run the test command."
+            "test": "Run the test command.",
+            "showAvatar": "Show a targets avatar as a larger image"
         },
         "argDescs": {
             "devCommand": "Command.",
