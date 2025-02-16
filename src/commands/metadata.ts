@@ -43,6 +43,53 @@ export const ChatCommandMetadata: {
             },
         ],
     },
+    ROLE: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.role', Language.Default),
+        description: Lang.getRef('commandDescs.role', Language.Default),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                type: ApplicationCommandOptionType.String,
+                name: 'add-or-remove',
+                description: 'The choice on what you would like to do with the specified role',
+                required: true,
+                choices: [
+                    { name: 'add', value: 'ADD' },
+                    { name: 'remove', value: 'REMOVE' },
+                ],
+            },
+            {
+                type: ApplicationCommandOptionType.String,
+                name: 'user',
+                description:
+                    'The user you want to add / remove a role from - @User-mention / User-ID',
+                required: true,
+            },
+            {
+                name: 'role-mention',
+                description: 'The role you wish to add or remove ( ONE PER COMMAND )',
+                type: ApplicationCommandOptionType.Mentionable,
+                required: true,
+            },
+        ],
+    },
+    CHECK: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.check', Language.Default),
+        description: Lang.getRef('commandDescs.check', Language.Default),
+        dm_permission: false,
+        default_member_permissions: undefined,
+        options: [
+            {
+                type: ApplicationCommandOptionType.String,
+                name: 'user',
+                description: 'The user you want to check information on - @User-mention / User-ID',
+                required: false,
+            },
+        ],
+    },
 };
 
 export const MessageCommandMetadata: {

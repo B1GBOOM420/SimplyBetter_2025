@@ -18,6 +18,72 @@
                     "text": "{{MEMBER_USER_TAG}} | {{USER_ID}}"
                 },
                 "timestamp": "{{TIME_HOLDER}}"
+            },
+            "roleAction": {
+                "color": "{{COLOR}}",
+                "title": "{{TITLE}}",
+                "description": "```diff\n{{DESC}}\n\n{{MODERATION_INFO}}```",
+                "footer": {
+                    "text": "{{TARGET_NAME}} | {{TARGET_ID}}"
+                },
+                "timestamp": "{{TIMEHOLDER}}"
+            },
+            "check": {
+                "author": {
+                    "name": "{{MEMBERUSERTAG}}",
+                    "iconURL": "{{AVATAR}}"
+                },
+                "color": "{{COM:colors.default}}",
+                "description": ["{{MEMBERAT}}", "```{{MEMBERUSERTAG}} | {{MEMBERNICKNAME}}```"],
+                "thumbnail": "{{AVATAR}}",
+                "fields": [
+                    {
+                        "name": "Signed Up",
+                        "value": ["*{{JOINDISCORDTIME}}*"],
+                        "inline": true
+                    },
+                    {
+                        "name": "‎",
+                        "value": ["‎"],
+                        "inline": true
+                    },
+                    {
+                        "name": "Joined Us",
+                        "value": ["*{{JOINUSTIME}}*"],
+                        "inline": true
+                    },
+                    {
+                        "name": "Roles",
+                        "value": ["{{ROLEHOLDER}}\n‎"],
+                        "inline": false
+                    },
+                    {
+                        "name": "Messages Sent",
+                        "value": ["*{{MSGCOUNT}}*"],
+                        "inline": true
+                    },
+                    {
+                        "name": "‎",
+                        "value": ["‎"],
+                        "inline": true
+                    },
+                    {
+                        "name": "Reactions Used",
+                        "value": ["*{{REACTIONCOUNT}}*"],
+                        "inline": true
+                    }
+                ],
+                "footer": {
+                    "text": "{{MEMBERUSERTAG}} | {{USERID}}"
+                },
+                "timestamp": "{{TIMEHOLDER}}"
+            },
+            "noLogsFound": {
+                "description": "We have no {{LOOPABLE}} logged for {{MEMBER}}",
+                "color": "{{COM:colors.default}}",
+                "footer": {
+                    "text": "{{MEMBER}} | {{MEMBER_ID}}"
+                }
             }
         },
         "validationEmbeds": {
@@ -36,6 +102,14 @@
                     "Required permissions: {{PERMISSIONS}}"
                 ],
                 "color": "{{COM:colors.warning}}"
+            },
+            "alreadyHasRole": {
+                "description": "<@${{MEMBER_ID}}> already has the role <@&${{ROLEMENTION_ID}}>.",
+                "color": "{{COM:colors.error}}"
+            },
+            "doesNotHaveRole": {
+                "description": "<@${{MEMBER_ID}}> does not have the role <@&${{ROLEMENTION_ID}}>.",
+                "color": "{{COM:colors.error}}"
             }
         },
         "errorEmbeds": {
@@ -70,7 +144,11 @@
                 "color": "{{COM:colors.warning}}"
             },
             "memberNotFound": {
-                "description": "The specified member was not found in this guild. Try a different method of searching if you can still locate said user.",
+                "description": "```ansi\n\u001b[0;31mI can not seem to locate that user!\nPlease double check the submitted ID / @UserMention\u001b[0;0m\n\n\u001b[0;30mIf this error seems out of the ordinary, let your developer know!\u001b[0;0m```",
+                "color": "{{COM:colors.error}}"
+            },
+            "cantActionMod": {
+                "description": "```ansi\n\u001b[0;31mYou cannot {{COMMAND}} a user possessing the moderator role or higher.\u001b[0;0m\n\n\u001b[0;30mIf this error seems out of the ordinary, let your developer know!\u001b[0;0m```",
                 "color": "{{COM:colors.error}}"
             }
         },
@@ -87,7 +165,9 @@
         },
         "chatCommands": {
             "test": "test",
-            "showAvatar": "avatar"
+            "showAvatar": "avatar",
+            "role": "role",
+            "check": "check"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -100,11 +180,10 @@
             "option": "option"
         },
         "commandDescs": {
-            "dev": "Developer use only.",
-            "help": "Find help or contact support.",
-            "info": "View bot info.",
             "test": "Run the test command.",
-            "showAvatar": "Show a targets avatar as a larger image"
+            "showAvatar": "Show a targets avatar as a larger image",
+            "role": "Add / Remove a role from a specified user",
+            "check": "Check information gathered about any user"
         },
         "argDescs": {
             "devCommand": "Command.",
@@ -203,6 +282,10 @@
             "templateEmbed": "[Discord Bot TypeScript Template]({{COM:links.template}})",
             "termsEmbed": "[View Terms of Service]({{COM:links.terms}})",
             "voteEmbed": "[Vote for {{COM:bot.name}}!]({{COM:links.vote}})"
+        },
+        "validation": {
+            "memberNotFound": "```ansi\n\u001b[0;31mI can not seem to locate that user!\nPlease double check the submitted ID / @UserMention\u001b[0;0m\n\nIf this error seems out of the ordinary, let your developer know!```",
+            "channelNotFound": "```ansi\n\u001b[0;31mI can not seem to locate that channel!\nPlease double check the submitted ID / #channelMention\u001b[0;0m\n\nIf this error seems out of the ordinary, let your developer know!```"
         }
     }
 }

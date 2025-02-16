@@ -3,7 +3,12 @@ import { Options, Partials } from 'discord.js';
 import { createRequire } from 'node:module';
 
 import { Button } from './buttons/index.js';
-import { ShowAvatarChatCommand, TestCommand } from './commands/chat/index.js';
+import {
+    CheckChatCommand,
+    RoleChatCommand,
+    ShowAvatarChatCommand,
+    TestCommand,
+} from './commands/chat/index.js';
 import {
     ChatCommandMetadata,
     Command,
@@ -32,10 +37,23 @@ import {
     Logger,
 } from './services/index.js';
 import { Trigger } from './triggers/index.js';
+import mongoose from 'mongoose';
 
 const require = createRequire(import.meta.url);
 let Config = require('../config/config.json');
 let Logs = require('../lang/logs.json');
+
+async function MongoConnection(): Promise<void> {
+    try {
+        await mongoose.connect(Config.client.mongoURI || '', {
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000,
+        });
+        Logger.info('MongoDB connected!');
+    } catch (error) {
+        Logger.error('-> MongoDB Failed to connect!!!', error);
+    }
+}
 
 async function start(): Promise<void> {
     // Services
@@ -57,6 +75,8 @@ async function start(): Promise<void> {
     let commands: Command[] = [
         new TestCommand(),
         new ShowAvatarChatCommand(),
+        new RoleChatCommand(),
+        new CheckChatCommand(),
 
         // Message Context Commands
         new ViewDateSent(),
@@ -129,6 +149,7 @@ async function start(): Promise<void> {
     }
 
     await bot.start();
+    await MongoConnection();
 }
 
 process.on('unhandledRejection', (reason, _promise) => {
