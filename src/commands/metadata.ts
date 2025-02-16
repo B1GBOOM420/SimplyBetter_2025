@@ -1,6 +1,7 @@
 import {
     ApplicationCommandOptionType,
     ApplicationCommandType,
+    BitField,
     PermissionFlagsBits,
     PermissionsBitField,
     RESTPostAPIChatInputApplicationCommandsJSONBody,
@@ -111,5 +112,11 @@ export const UserCommandMetadata: {
         name: Lang.getRef('userCommands.viewDateJoined', Language.Default),
         default_member_permissions: undefined,
         dm_permission: true,
+    },
+    CHECK: {
+        type: ApplicationCommandType.User,
+        name: Lang.getRef('userCommands.checkUserCommand', Language.Default),
+        dm_permission: false,
+        default_member_permissions: undefined,
     },
 };

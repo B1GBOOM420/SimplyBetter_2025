@@ -1,31 +1,31 @@
 import {
-    ChatInputCommandInteraction,
     ColorResolvable,
     EmbedBuilder,
     PermissionsString,
+    UserContextMenuCommandInteraction,
 } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
 import { Lang } from '../../services/index.js';
-import { InteractionUtils, RegexUtils } from '../../utils/index.js';
+import { InteractionUtils, MessageUtils, RegexUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 import ModerationSchema from '../../database/ModerationSchema.js';
 import UserActionCountSchema from '../../database/UserActionCountSchema.js';
 
-export class CheckChatCommand implements Command {
-    public names = [Lang.getRef('chatCommands.check', Language.Default)];
+export class CheckUserCommand implements Command {
+    public names = [Lang.getRef('userCommands.checkUserCommand', Language.Default)];
     public cooldown = new RateLimiter(1, 5000);
-    public deferType = CommandDeferType.NONE;
+    public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
 
-    public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        const { options, guild } = intr;
+    public async execute(intr: UserContextMenuCommandInteraction, data: EventData): Promise<void> {
+        const { guild } = intr;
 
-        const targetUser = RegexUtils.extractTargetUserId(intr, options.getString('user'));
+        const targetUserID = intr.targetUser.id;
 
-        const MemberObj = guild.members.cache.find(mber => mber.id === targetUser);
+        const MemberObj = guild.members.cache.find(mber => mber.id === targetUserID);
         if (!MemberObj) {
             InteractionUtils.send(
                 intr,
@@ -150,8 +150,15 @@ export class CheckChatCommand implements Command {
             embeds.push(noDMsEmbed);
         }
 
+        const logChannelId = Lang.getCom('channels.logs');
+
         // Send all embeds in one message
-        await InteractionUtils.editReply(intr, { embeds });
+        await InteractionUtils.editReply(
+            intr,
+            `your check has been sent to <#${logChannelId}> :wink:`
+        );
+
+        await MessageUtils.sendToLogChannel(guild, { embeds });
     }
 
     private async createLogsEmbed(

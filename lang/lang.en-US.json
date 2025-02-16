@@ -30,8 +30,7 @@
             },
             "check": {
                 "author": {
-                    "name": "{{MEMBERUSERTAG}}",
-                    "iconURL": "{{AVATAR}}"
+                    "name": "Checked By {{MOD_NAME}}"
                 },
                 "color": "{{COM:colors.default}}",
                 "description": ["{{MEMBERAT}}", "```{{MEMBERUSERTAG}} | {{MEMBERNICKNAME}}```"],
@@ -170,7 +169,8 @@
             "check": "check"
         },
         "userCommands": {
-            "viewDateJoined": "View Date Joined"
+            "viewDateJoined": "View Date Joined",
+            "checkUserCommand": "Check User"
         },
         "messageCommands": {
             "viewDateSent": "View Date Sent"
