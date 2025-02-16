@@ -1,4 +1,9 @@
-import { ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'discord.js';
+import {
+    ChatInputCommandInteraction,
+    ColorResolvable,
+    EmbedBuilder,
+    PermissionsString,
+} from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 
 import { Language } from '../../models/enum-helpers/index.js';
@@ -25,7 +30,6 @@ export class CheckChatCommand implements Command {
             InteractionUtils.send(
                 intr,
                 Lang.getEmbed('errorEmbeds.memberNotFound', data.lang),
-                // Lang.getRef('validation.memberNotFound', data.lang)
                 true
             );
             return;
@@ -156,7 +160,7 @@ export class CheckChatCommand implements Command {
         logType: string
     ): Promise<EmbedBuilder> {
         const embed = new EmbedBuilder()
-            .setColor('#ffcc66')
+            .setColor(Lang.getCom('colors.warning') as ColorResolvable)
             .setAuthor({ name: `${logType} for ${fullUserName}` })
             .setFooter({ text: `${fullUserName} | ${userId}` })
             .setTimestamp();
