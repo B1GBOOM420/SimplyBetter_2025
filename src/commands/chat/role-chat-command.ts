@@ -23,7 +23,7 @@ export class RoleChatCommand implements Command {
         const targetUser = RegexUtils.extractTargetUserId(intr, target);
 
         // Find the target member
-        const member = guild.members.cache.get(targetUser);
+        const member = await guild.members.fetch(targetUser);
         if (!member) {
             await InteractionUtils.send(
                 intr,

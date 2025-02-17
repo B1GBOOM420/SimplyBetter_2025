@@ -17,7 +17,7 @@ import UserActionCountSchema from '../../database/UserActionCountSchema.js';
 export class CheckChatCommand implements Command {
     public names = [Lang.getRef('chatCommands.check', Language.Default)];
     public cooldown = new RateLimiter(1, 5000);
-    public deferType = CommandDeferType.NONE;
+    public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
