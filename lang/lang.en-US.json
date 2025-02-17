@@ -174,7 +174,8 @@
             "avatarUserCommand": "Send Avatar To Mod Chat"
         },
         "messageCommands": {
-            "viewDateSent": "View Date Sent"
+            "viewDateSent": "View Date Sent",
+            "checkMsgAuthor": "Check Msg Author In Mod Chat"
         },
         "arguments": {
             "command": "command",

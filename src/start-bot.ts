@@ -15,7 +15,7 @@ import {
     MessageCommandMetadata,
     UserCommandMetadata,
 } from './commands/index.js';
-import { ViewDateSent } from './commands/message/index.js';
+import { CheckAuthorMessageCommand, ViewDateSent } from './commands/message/index.js';
 import { AvatarUserCommand, CheckUserCommand, ViewDateJoined } from './commands/user/index.js';
 import {
     ButtonHandler,
@@ -80,6 +80,7 @@ async function start(): Promise<void> {
 
         // Message Context Commands
         new ViewDateSent(),
+        new CheckAuthorMessageCommand(),
 
         // // User Context Commands
         new ViewDateJoined(),

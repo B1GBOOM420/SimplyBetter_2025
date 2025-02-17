@@ -102,6 +102,12 @@ export const MessageCommandMetadata: {
         default_member_permissions: undefined,
         dm_permission: true,
     },
+    CHECK: {
+        type: ApplicationCommandType.Message,
+        name: Lang.getRef('messageCommands.checkMsgAuthor', Language.Default),
+        dm_permission: false,
+        default_member_permissions: '8192',
+    },
 };
 
 export const UserCommandMetadata: {
