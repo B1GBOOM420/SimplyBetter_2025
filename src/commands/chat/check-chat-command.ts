@@ -25,7 +25,7 @@ export class CheckChatCommand implements Command {
 
         const targetUser = RegexUtils.extractTargetUserId(intr, options.getString('user'));
 
-        const MemberObj = guild.members.cache.find(mber => mber.id === targetUser);
+        const MemberObj = await guild.members.fetch(targetUser);
         if (!MemberObj) {
             InteractionUtils.send(
                 intr,

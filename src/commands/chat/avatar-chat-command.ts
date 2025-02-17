@@ -32,7 +32,7 @@ export class ShowAvatarChatCommand implements Command {
             targetUser = commandArgs;
         }
 
-        const member = guild.members.cache.find(mber => mber.id === targetUser);
+        const member = await guild.members.fetch(targetUser);
 
         if (!member) {
             await InteractionUtils.send(
