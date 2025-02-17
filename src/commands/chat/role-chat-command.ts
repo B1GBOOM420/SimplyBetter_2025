@@ -8,7 +8,7 @@ import { InteractionUtils, MessageUtils, RegexUtils } from '../../utils/index.js
 import { Command, CommandDeferType } from '../index.js';
 import { SecurityUtils } from '../../utils/security-utils.js';
 
-export class RoleChatCommand implements Command {
+export class RoleSlashCommand implements Command {
     public names = [Lang.getRef('chatCommands.role', Language.Default)];
     public description = [Lang.getRef('chatCommands.role', Language.Default)];
     public cooldown = new RateLimiter(1, 5000);

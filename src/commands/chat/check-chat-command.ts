@@ -14,7 +14,7 @@ import { Command, CommandDeferType } from '../index.js';
 import ModerationSchema from '../../database/ModerationSchema.js';
 import UserActionCountSchema from '../../database/UserActionCountSchema.js';
 
-export class CheckChatCommand implements Command {
+export class CheckSlashCommand implements Command {
     public names = [Lang.getRef('chatCommands.check', Language.Default)];
     public cooldown = new RateLimiter(1, 5000);
     public deferType = CommandDeferType.PUBLIC;
@@ -96,7 +96,11 @@ export class CheckChatCommand implements Command {
 
         const posts = moderationsFromDataBase.filter(item => item.type === 'note');
         const infractions = moderationsFromDataBase.filter(
-            item => item.type === 'warn' || item.type === 'mute' || item.type === 'unmute'
+            item =>
+                item.type === 'warn' ||
+                item.type === 'mute' ||
+                item.type === 'unmute' ||
+                item.type === 'timeout'
         );
         const directs = moderationsFromDataBase.filter(item => item.type === 'dm');
 

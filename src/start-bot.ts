@@ -4,10 +4,11 @@ import { createRequire } from 'node:module';
 
 import { Button } from './buttons/index.js';
 import {
-    CheckChatCommand,
-    RoleChatCommand,
-    ShowAvatarChatCommand,
+    AvatarSlashCommand,
+    CheckSlashCommand,
+    RoleSlashCommand,
     TestCommand,
+    TimeoutSlashCommand,
 } from './commands/chat/index.js';
 import {
     ChatCommandMetadata,
@@ -74,9 +75,10 @@ async function start(): Promise<void> {
     // Commands
     let commands: Command[] = [
         new TestCommand(),
-        new ShowAvatarChatCommand(),
-        new RoleChatCommand(),
-        new CheckChatCommand(),
+        new AvatarSlashCommand(),
+        new RoleSlashCommand(),
+        new CheckSlashCommand(),
+        new TimeoutSlashCommand(),
 
         // Message Context Commands
         new ViewDateSent(),

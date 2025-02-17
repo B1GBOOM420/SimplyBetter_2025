@@ -166,16 +166,19 @@
             "test": "test",
             "showAvatar": "avatar",
             "role": "role",
-            "check": "check"
+            "check": "check",
+            "timeOut": "timeout"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined",
             "checkUserCommand": "Check User In Mod Chat",
-            "avatarUserCommand": "Send Avatar To Mod Chat"
+            "avatarUserCommand": "Send Avatar To Mod Chat",
+            "timeoutUserCommand": "Timeout User for 24h"
         },
         "messageCommands": {
             "viewDateSent": "View Date Sent",
-            "checkMsgAuthor": "Check Msg Author In Mod Chat"
+            "checkMsgAuthor": "Check Msg Author In Mod Chat",
+            "timeoutAuthorCommand": "Timeout Author for 24h"
         },
         "arguments": {
             "command": "command",
@@ -185,7 +188,8 @@
             "test": "Run the test command.",
             "showAvatar": "Show a targets avatar as a larger image",
             "role": "Add / Remove a role from a specified user",
-            "check": "Check information gathered about any user"
+            "check": "Check information gathered about any user",
+            "timeOut": "Temporarily disable target user from: messaging, reacting, joining voice / video calls"
         },
         "argDescs": {
             "devCommand": "Command.",

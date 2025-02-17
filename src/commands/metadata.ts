@@ -26,7 +26,7 @@ export const ChatCommandMetadata: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.showAvatar', Language.Default),
         description: Lang.getRef('commandDescs.showAvatar', Language.Default),
-        dm_permission: true,
+        dm_permission: false,
         default_member_permissions: '8192',
         options: [
             {
@@ -48,7 +48,7 @@ export const ChatCommandMetadata: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.role', Language.Default),
         description: Lang.getRef('commandDescs.role', Language.Default),
-        dm_permission: true,
+        dm_permission: false,
         default_member_permissions: '8192',
         options: [
             {
@@ -88,6 +88,42 @@ export const ChatCommandMetadata: {
                 name: 'user',
                 description: 'The user you want to check information on - @User-mention / User-ID',
                 required: false,
+            },
+        ],
+    },
+    TIMEOUT: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.timeOut', Language.Default),
+        description: Lang.getRef('commandDescs.timeOut', Language.Default),
+        dm_permission: false,
+        default_member_permissions: '8192',
+        options: [
+            {
+                type: ApplicationCommandOptionType.String,
+                name: 'user',
+                description: 'The target user you want to timeout - @User-mention / User-ID',
+                required: true,
+            },
+            {
+                type: ApplicationCommandOptionType.String,
+                name: 'duration',
+                description: 'The duration of the timeout',
+                required: true,
+                choices: [
+                    { name: '5m', value: '5M' },
+                    { name: '10m', value: '10M' },
+                    { name: '1h', value: '1H' },
+                    { name: '24h', value: '1D' },
+                    { name: '7d', value: '1W' },
+                    { name: '28d', value: '28D' },
+                    { name: 'disable', value: 'DISABLE' },
+                ],
+            },
+            {
+                name: 'reason',
+                description: 'The reason this user has revcieved a timeout',
+                type: ApplicationCommandOptionType.String,
+                required: true,
             },
         ],
     },
