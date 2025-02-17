@@ -27,7 +27,7 @@ export const ChatCommandMetadata: {
         name: Lang.getRef('chatCommands.showAvatar', Language.Default),
         description: Lang.getRef('commandDescs.showAvatar', Language.Default),
         dm_permission: true,
-        default_member_permissions: undefined,
+        default_member_permissions: '8192',
         options: [
             {
                 type: ApplicationCommandOptionType.String,
@@ -49,7 +49,7 @@ export const ChatCommandMetadata: {
         name: Lang.getRef('chatCommands.role', Language.Default),
         description: Lang.getRef('commandDescs.role', Language.Default),
         dm_permission: true,
-        default_member_permissions: undefined,
+        default_member_permissions: '8192',
         options: [
             {
                 type: ApplicationCommandOptionType.String,
@@ -81,7 +81,7 @@ export const ChatCommandMetadata: {
         name: Lang.getRef('chatCommands.check', Language.Default),
         description: Lang.getRef('commandDescs.check', Language.Default),
         dm_permission: false,
-        default_member_permissions: undefined,
+        default_member_permissions: '8192',
         options: [
             {
                 type: ApplicationCommandOptionType.String,
@@ -117,6 +117,12 @@ export const UserCommandMetadata: {
         type: ApplicationCommandType.User,
         name: Lang.getRef('userCommands.checkUserCommand', Language.Default),
         dm_permission: false,
-        default_member_permissions: undefined,
+        default_member_permissions: '8192',
+    },
+    SHOWAVATAR: {
+        type: ApplicationCommandType.User,
+        name: Lang.getRef('userCommands.avatarUserCommand', Language.Default),
+        dm_permission: false,
+        default_member_permissions: '8192',
     },
 };

@@ -16,7 +16,7 @@ import {
     UserCommandMetadata,
 } from './commands/index.js';
 import { ViewDateSent } from './commands/message/index.js';
-import { CheckUserCommand, ViewDateJoined } from './commands/user/index.js';
+import { AvatarUserCommand, CheckUserCommand, ViewDateJoined } from './commands/user/index.js';
 import {
     ButtonHandler,
     CommandHandler,
@@ -84,6 +84,7 @@ async function start(): Promise<void> {
         // // User Context Commands
         new ViewDateJoined(),
         new CheckUserCommand(),
+        new AvatarUserCommand(),
         // TODO: Add new commands here
     ];
 

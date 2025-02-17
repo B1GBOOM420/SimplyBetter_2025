@@ -170,7 +170,8 @@
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined",
-            "checkUserCommand": "Check User"
+            "checkUserCommand": "Check User In Mod Chat",
+            "avatarUserCommand": "Send Avatar To Mod Chat"
         },
         "messageCommands": {
             "viewDateSent": "View Date Sent"
