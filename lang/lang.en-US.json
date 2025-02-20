@@ -2,7 +2,8 @@
     "data": {
         "displayEmbeds": {
             "test": {
-                "description": "Test command works!"
+                "description": "```ansi\n\u001b[0;32m{{MODERATOR}} has timed out {{TARGET}} for {{DURATION}}\u001b[0;0m\n\n\u001b[0;30mIf this message seems wrong, let your developer know!\u001b[0;0m```",
+                "color": "{{COM:colors.warning}}"
             },
             "viewDateJoined": {
                 "description": "{{TARGET}} joined on {{DATE}}!"
@@ -83,6 +84,15 @@
                 "footer": {
                     "text": "{{MEMBER}} | {{MEMBER_ID}}"
                 }
+            },
+            "timeoutAction": {
+                "title": "{{TITLE}}",
+                "description": "```ansi\n\u001b[0;{{FONT_COLOR}}m{{TIMEOUT_ACTION_STRING}}\u001b[0;0m\n\n\u001b[0;30mIf this message seems wrong, let your developer know!\u001b[0;0m```",
+                "color": "{{COLOR}}",
+                "footer": {
+                    "text": "{{TARGET_NAME}} | {{TARGET_ID}}"
+                },
+                "timestamp": "{{TIMEHOLDER}}"
             }
         },
         "validationEmbeds": {
@@ -103,12 +113,16 @@
                 "color": "{{COM:colors.warning}}"
             },
             "alreadyHasRole": {
-                "description": "<@${{MEMBER_ID}}> already has the role <@&${{ROLEMENTION_ID}}>.",
-                "color": "{{COM:colors.error}}"
+                "description": "```ansi\n\u001b[0;33m**{{MEMBER_USERNAME}} already has the role {{ROLE_NAME}}.**\u001b[0;0m\n\n\u001b[0;30mIf this error seems out of the ordinary, let your developer know!\u001b[0;0m```",
+                "color": "{{COM:colors.warning}}"
             },
             "doesNotHaveRole": {
-                "description": "<@${{MEMBER_ID}}> does not have the role <@&${{ROLEMENTION_ID}}>.",
-                "color": "{{COM:colors.error}}"
+                "description": "```ansi\n\u001b[0;33m**{{MEMBER_USERNAME}} does not have the role ${{ROLE_NAME}}.**\u001b[0;0m\n\n\u001b[0;30mIf this error seems out of the ordinary, let your developer know!\u001b[0;0m```",
+                "color": "{{COM:colors.warning}}"
+            },
+            "channelNotFound": {
+                "description": "```ansi\n\u001b[0;31mI can not seem to locate that channel!\nPlease double check the submitted ID / #channelMention\u001b[0;0m\n\nIf this error seems out of the ordinary, let your developer know!```",
+                "color": "{{COM:colors.warning}}"
             }
         },
         "errorEmbeds": {
@@ -149,6 +163,11 @@
             "cantActionMod": {
                 "description": "```ansi\n\u001b[0;31mYou cannot {{COMMAND}} a user possessing the moderator role or higher.\u001b[0;0m\n\n\u001b[0;30mIf this error seems out of the ordinary, let your developer know!\u001b[0;0m```",
                 "color": "{{COM:colors.error}}"
+            },
+            "logErrorEmbed": {
+                "title": "Something went wrong!",
+                "description": "```ts\n{{STACKERROR}}```",
+                "color": "{{COM:colors.error}}"
             }
         },
         "channelRegexes": {
@@ -156,9 +175,6 @@
         }
     },
     "refs": {
-        "meta": {
-            "translators": "[TranslatorName#1234](https://github.com/)"
-        },
         "bot": {
             "description": "{{REF:links.templateEmbed}} helps give developers a starting point for new Discord bots, so that much of the initial setup can be avoided and developers can instead focus on meaningful bot features."
         },
@@ -182,7 +198,8 @@
         },
         "arguments": {
             "command": "command",
-            "option": "option"
+            "option": "option",
+            "reason": "violation of our rules"
         },
         "commandDescs": {
             "test": "Run the test command.",
@@ -278,20 +295,17 @@
         "other": {
             "na": "N/A"
         },
-        "links": {
-            "authorEmbed": "[{{COM:bot.author}}]({{COM:links.author}})",
-            "docsEmbed": "[View Documentation]({{COM:links.docs}})",
-            "donateEmbed": "[Donate via PayPal]({{COM:links.donate}})",
-            "inviteEmbed": "[Invite {{COM:bot.name}} to a Server!]({{COM:links.invite}})",
-            "sourceEmbed": "[View Source Code]({{COM:links.source}})",
-            "supportEmbed": "[Join Support Server]({{COM:links.support}})",
-            "templateEmbed": "[Discord Bot TypeScript Template]({{COM:links.template}})",
-            "termsEmbed": "[View Terms of Service]({{COM:links.terms}})",
-            "voteEmbed": "[Vote for {{COM:bot.name}}!]({{COM:links.vote}})"
-        },
-        "validation": {
-            "memberNotFound": "```ansi\n\u001b[0;31mI can not seem to locate that user!\nPlease double check the submitted ID / @UserMention\u001b[0;0m\n\nIf this error seems out of the ordinary, let your developer know!```",
-            "channelNotFound": "```ansi\n\u001b[0;31mI can not seem to locate that channel!\nPlease double check the submitted ID / #channelMention\u001b[0;0m\n\nIf this error seems out of the ordinary, let your developer know!```"
+        "links": {},
+
+        "ansi": {
+            "red": "\u001b[0;31m{{RED_STRING}}\u001b[0;0m",
+            "grey": "\u001b[0;30m{{GREY_STRING}}\u001b[0;0m",
+            "green": "\u001b[0;32m{{GREEN_STRING}}\u001b[0;0m",
+            "yellow": "\u001b[0;33m{{YELLOW_STRING}}\u001b[0;0m",
+            "blue": "\u001b[0;34m{{BLUE_STRING}}\u001b[0;0m",
+            "pink": "\u001b[0;35m{{PINK_STRING}}\u001b[0;0m",
+            "cyan": "\u001b[0;36m{{CYAN_STRING}}\u001b[0;0m",
+            "white": "\u001b[0;37m{{WHITE_STRING}}\u001b[0;0m"
         }
     }
 }

@@ -34,7 +34,7 @@ export class CheckSlashCommand implements Command {
             );
             return;
         }
-        const fullUserName = `${MemberObj.user.username}#${MemberObj.user.discriminator}`;
+        const fullUserName = MemberObj.user.tag;
 
         const dbUserChatData = await UserActionCountSchema.findOne({
             discord_id: MemberObj.user.id,
@@ -61,7 +61,7 @@ export class CheckSlashCommand implements Command {
 
         // Add the main user info embed
         const userInfoEmbed = Lang.getEmbed('displayEmbeds.check', data.lang, {
-            MOD_NAME: intr.user.username,
+            MOD_NAME: intr.user.tag,
             MEMBERUSERTAG: fullUserName,
             AVATAR: MemberObj.user.displayAvatarURL(),
             MEMBERAT: `<@${MemberObj.user.id}>`,
@@ -102,7 +102,7 @@ export class CheckSlashCommand implements Command {
                 item.type === 'unmute' ||
                 item.type === 'timeout'
         );
-        const directs = moderationsFromDataBase.filter(item => item.type === 'dm');
+        // const directs = moderationsFromDataBase.filter(item => item.type === 'dm');
 
         // Add embeds for logs if they exist
         if (posts.length > 0) {
@@ -141,18 +141,18 @@ export class CheckSlashCommand implements Command {
             embeds.push(noInfractionsEmbed);
         }
 
-        if (directs.length > 0) {
-            const dmsEmbed = await this.createLogsEmbed(
-                fullUserName,
-                MemberObj.user.id,
-                directs,
-                'DMs'
-            );
-            embeds.push(dmsEmbed);
-        } else {
-            const noDMsEmbed = this.createNoLogsEmbed(data, fullUserName, MemberObj.user.id, 'DMs');
-            embeds.push(noDMsEmbed);
-        }
+        // if (directs.length > 0) {
+        //     const dmsEmbed = await this.createLogsEmbed(
+        //         fullUserName,
+        //         MemberObj.user.id,
+        //         directs,
+        //         'DMs'
+        //     );
+        //     embeds.push(dmsEmbed);
+        // } else {
+        //     const noDMsEmbed = this.createNoLogsEmbed(data, fullUserName, MemberObj.user.id, 'DMs');
+        //     embeds.push(noDMsEmbed);
+        // }
 
         // Send all embeds in one message
         await InteractionUtils.editReply(intr, { embeds });

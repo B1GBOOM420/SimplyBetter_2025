@@ -144,6 +144,12 @@ export const MessageCommandMetadata: {
         dm_permission: false,
         default_member_permissions: '8192',
     },
+    TIMEOUT: {
+        type: ApplicationCommandType.Message,
+        name: Lang.getRef('messageCommands.timeoutAuthorCommand', Language.Default),
+        dm_permission: false,
+        default_member_permissions: '8192',
+    },
 };
 
 export const UserCommandMetadata: {
@@ -164,6 +170,12 @@ export const UserCommandMetadata: {
     SHOWAVATAR: {
         type: ApplicationCommandType.User,
         name: Lang.getRef('userCommands.avatarUserCommand', Language.Default),
+        dm_permission: false,
+        default_member_permissions: '8192',
+    },
+    TIMEOUT: {
+        type: ApplicationCommandType.User,
+        name: Lang.getRef('userCommands.timeoutUserCommand', Language.Default),
         dm_permission: false,
         default_member_permissions: '8192',
     },

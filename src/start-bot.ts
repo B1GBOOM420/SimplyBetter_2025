@@ -16,8 +16,17 @@ import {
     MessageCommandMetadata,
     UserCommandMetadata,
 } from './commands/index.js';
-import { CheckAuthorMessageCommand, ViewDateSent } from './commands/message/index.js';
-import { AvatarUserCommand, CheckUserCommand, ViewDateJoined } from './commands/user/index.js';
+import {
+    CheckAuthorMessageCommand,
+    TimeoutAuthorCommand,
+    ViewDateSent,
+} from './commands/message/index.js';
+import {
+    AvatarUserCommand,
+    CheckUserCommand,
+    TimeoutUserCommand,
+    ViewDateJoined,
+} from './commands/user/index.js';
 import {
     ButtonHandler,
     CommandHandler,
@@ -37,7 +46,7 @@ import {
     JobService,
     Logger,
 } from './services/index.js';
-import { Trigger } from './triggers/index.js';
+import { AskJgodTrigger, BotWatchTrigger, Trigger } from './triggers/index.js';
 import mongoose from 'mongoose';
 
 const require = createRequire(import.meta.url);
@@ -83,11 +92,13 @@ async function start(): Promise<void> {
         // Message Context Commands
         new ViewDateSent(),
         new CheckAuthorMessageCommand(),
+        new TimeoutAuthorCommand(),
 
         // // User Context Commands
         new ViewDateJoined(),
         new CheckUserCommand(),
         new AvatarUserCommand(),
+        new TimeoutUserCommand(),
         // TODO: Add new commands here
     ];
 
@@ -104,6 +115,8 @@ async function start(): Promise<void> {
     // Triggers
     let triggers: Trigger[] = [
         // TODO: Add new triggers here
+        new AskJgodTrigger(),
+        new BotWatchTrigger(),
     ];
 
     // Event handlers

@@ -1,4 +1,8 @@
-import { ChatInputCommandInteraction, PermissionsString } from 'discord.js';
+import {
+    ChatInputCommandInteraction,
+    PermissionsString,
+    UserContextMenuCommandInteraction,
+} from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 
 import { Language } from '../../models/enum-helpers/index.js';
@@ -15,62 +19,60 @@ const DURATION_UNITS = {
     DAY: 24 * 60 * 60 * 1000, // 1 day in milliseconds
     WEEK: 7 * 24 * 60 * 60 * 1000, // 1 week in milliseconds
 };
-
-export class TimeoutSlashCommand implements Command {
-    public names = [Lang.getRef('chatCommands.timeOut', Language.Default)];
+export class TimeoutUserCommand implements Command {
+    public names = [Lang.getRef('userCommands.timeoutUserCommand', Language.Default)];
     public cooldown = new RateLimiter(1, 5000);
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
 
-    public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        try {
-            const { options, guild, user } = intr;
+    public async execute(intr: UserContextMenuCommandInteraction, data: EventData): Promise<void> {
+        const { guild, targetUser, channel, user } = intr;
 
-            // Extract and validate target user
-            const targetUserId = RegexUtils.extractTargetUserId(intr, options.getString('user'));
-            const duration = options.getString('duration', true);
-            const reason = options.getString('reason', true);
+        // Extract and validate target user
+        const targetUserId = targetUser.id;
+        const duration = '24H';
+        const reason = Lang.getRef('arguments.reason', data.lang);
 
-            // Fetch the member object
-            const member = await guild.members.fetch(targetUserId);
-            if (!member) {
-                await InteractionUtils.send(
-                    intr,
-                    Lang.getEmbed('errorEmbeds.memberNotFound', data.lang),
-                    true
-                );
-                return;
-            }
-
-            // Log the infraction in the database
-            await this.logInfraction(member.user.id, reason, duration, user.username);
-
-            // Handle timeout or disable
-            const calculatedDuration = this.calculateDuration(duration);
-            const isDisablingTimeout = calculatedDuration === null;
-
-            const embed = this.createTimeoutEmbed(
-                data.lang,
-                isDisablingTimeout ? 'Timeout Disabled' : 'Timeout Enabled',
-                isDisablingTimeout ? '33' : '31', // Yellow for disable, red for enable
-                isDisablingTimeout
-                    ? `${user.username} has disabled the Timeout on ${member.user.username}`
-                    : `${user.username} has TimedOut user ${member.user.username} for ${duration}\n\nReason: ${reason}`,
-                isDisablingTimeout ? Lang.getCom('colors.warning') : Lang.getCom('colors.error'),
-                member.user.username,
-                member.user.id
+        // Fetch the member object
+        const member = await guild.members.fetch(targetUserId);
+        if (!member) {
+            await InteractionUtils.send(
+                intr,
+                Lang.getEmbed('errorEmbeds.memberNotFound', data.lang),
+                true
             );
-
-            await member.timeout(calculatedDuration, reason);
-            await InteractionUtils.editReply(intr, {
-                content: `This message has also been sent to <#${Lang.getCom('channels.logs')}>`,
-                embeds: [embed],
-            });
-            await MessageUtils.sendToLogChannel(guild, embed);
-        } catch (error) {
-            console.error('Error executing timeout command:', error);
-            await InteractionUtils.send(intr, error, true);
+            return;
         }
+
+        // Log the infraction in the database
+        await this.logInfraction(targetUser.id, reason, duration, user.username);
+
+        // Handle timeout or disable
+        const calculatedDuration = this.calculateDuration(duration);
+        const isDisablingTimeout = calculatedDuration === null;
+
+        const embed = this.createTimeoutEmbed(
+            isDisablingTimeout
+                ? `${targetUser.username} Timeout - Disabled`
+                : `${targetUser.username} Timeout - Enabled`,
+            isDisablingTimeout ? '33' : '31', // Yellow for disable, red for enable
+            isDisablingTimeout
+                ? `${user.username} has disabled the Timeout on ${member.user.username}`
+                : `${user.username} has TimedOut user ${member.user.username} for ${duration}\n\nReason: ${reason}`,
+            isDisablingTimeout ? Lang.getCom('colors.warning') : Lang.getCom('colors.error'),
+            member.user.username,
+            member.user.id
+        );
+
+        await member.timeout(calculatedDuration, reason);
+        await InteractionUtils.editReply(intr, {
+            content: `This message has also been sent to <#${Lang.getCom('channels.logs')}>`,
+            embeds: [embed],
+        });
+        await MessageUtils.sendToLogChannel(guild, embed);
+    }
+    catch(error) {
+        console.error('Error executing timeout command:', error);
     }
 
     private async logInfraction(
@@ -99,7 +101,6 @@ export class TimeoutSlashCommand implements Command {
     }
 
     private createTimeoutEmbed(
-        lang: string,
         title: string,
         fontColor: string,
         actionString: string,
@@ -128,7 +129,7 @@ export class TimeoutSlashCommand implements Command {
                 return 10 * MINUTE;
             case '1H':
                 return HOUR;
-            case '1D':
+            case '24H':
                 return DAY;
             case '1W':
                 return WEEK;

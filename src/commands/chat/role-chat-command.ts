@@ -59,8 +59,8 @@ export class RoleSlashCommand implements Command {
             await InteractionUtils.send(
                 intr,
                 Lang.getEmbed('validationEmbeds.alreadyHasRole', data.lang, {
-                    MEMBER_ID: member.user.id,
-                    ROLEMENTION_ID: roleMention.id,
+                    MEMBER_USERNAME: member.user.username,
+                    ROLE_NAME: roleMention.name,
                 }),
                 true
             );
@@ -69,8 +69,8 @@ export class RoleSlashCommand implements Command {
             await InteractionUtils.send(
                 intr,
                 Lang.getEmbed('validationEmbeds.doesNotHaveRole', data.lang, {
-                    MEMBER_ID: member.user.id,
-                    ROLEMENTION_ID: roleMention.id,
+                    MEMBER_USERNAME: member.user.username,
+                    ROLE_NAME: roleMention.name,
                 }),
                 true
             );
@@ -116,7 +116,7 @@ export class RoleSlashCommand implements Command {
             Logger.error(`Failed to ${action} role:`, error);
             await InteractionUtils.send(
                 intr,
-                `An error has occured - Roles un-modified for ${member.user.username}.`,
+                `An error has occured - The status of ${member.user.username}'s roles are unknown.`,
                 true
             );
         }
