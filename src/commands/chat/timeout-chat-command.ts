@@ -98,7 +98,7 @@ export class TimeoutSlashCommand implements Command {
         });
     }
 
-    private createTimeoutEmbed(
+    public createTimeoutEmbed(
         lang: string,
         title: string,
         fontColor: string,

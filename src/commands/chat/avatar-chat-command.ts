@@ -44,7 +44,7 @@ export class AvatarSlashCommand implements Command {
 
         const nickname = member.nickname ? `aka ${member.nickname}` : 'No Nickname Set';
         const embed = Lang.getEmbed('displayEmbeds.avatar', data.lang, {
-            MEMBER_USER_TAG: `${member.user.username}#${member.user.discriminator}`,
+            MEMBER_USER_FULL: member.user.tag,
             AVATAR_IMG: member.user.displayAvatarURL({ size: 256 }),
             MEMBER_AT: `<@${member.user.id}>`,
             MEMBER_NICKNAME: nickname,

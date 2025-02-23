@@ -43,5 +43,19 @@
     "users": {
         "boom": "666678647129636903",
         "jgod": "367099637183676418"
+    },
+    "buttonNames": {
+        "warn": "warn-user",
+        "timeout": "timeout-user",
+        "ban": "ban-user",
+        "confirm-ban": "confirm-ban-user",
+        "verify-false": "verify-false",
+        "verify-true": "verify-true",
+        "awaiting-role": "awaiting-role",
+        "close-ticket": "first-close-ticket",
+        "confirm-close-ticket": "confirm-close-ticket",
+        "open-ticket": "open-ticket",
+        "report-scam": "report-scam",
+        "unlisted": "unlisted-option"
     }
 }

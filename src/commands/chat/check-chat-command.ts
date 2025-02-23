@@ -3,6 +3,9 @@ import {
     ColorResolvable,
     EmbedBuilder,
     PermissionsString,
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle,
 } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 
@@ -34,7 +37,6 @@ export class CheckSlashCommand implements Command {
             );
             return;
         }
-        const fullUserName = MemberObj.user.tag;
 
         const dbUserChatData = await UserActionCountSchema.findOne({
             discord_id: MemberObj.user.id,
@@ -61,10 +63,10 @@ export class CheckSlashCommand implements Command {
 
         // Add the main user info embed
         const userInfoEmbed = Lang.getEmbed('displayEmbeds.check', data.lang, {
-            MOD_NAME: intr.user.tag,
-            MEMBERUSERTAG: fullUserName,
-            AVATAR: MemberObj.user.displayAvatarURL(),
             MEMBERAT: `<@${MemberObj.user.id}>`,
+            MEMBERUSERTAG: MemberObj.user.tag,
+            AVATAR: MemberObj.user.displayAvatarURL(),
+            MOD_NAME: `${intr.user.tag} ( ${intr.user.id} )`,
             MEMBERNICKNAME: NickName,
             JOINDISCORDTIME: MemberObj.user.createdAt.toLocaleString('en-US', {
                 year: 'numeric',
@@ -102,12 +104,11 @@ export class CheckSlashCommand implements Command {
                 item.type === 'unmute' ||
                 item.type === 'timeout'
         );
-        // const directs = moderationsFromDataBase.filter(item => item.type === 'dm');
 
         // Add embeds for logs if they exist
         if (posts.length > 0) {
             const notesEmbed = await this.createLogsEmbed(
-                fullUserName,
+                MemberObj.user.tag,
                 MemberObj.user.id,
                 posts,
                 'Notes'
@@ -116,7 +117,7 @@ export class CheckSlashCommand implements Command {
         } else {
             const noNotesEmbed = this.createNoLogsEmbed(
                 data,
-                fullUserName,
+                MemberObj.user.tag,
                 MemberObj.user.id,
                 'Notes'
             );
@@ -125,7 +126,7 @@ export class CheckSlashCommand implements Command {
 
         if (infractions.length > 0) {
             const infractionsEmbed = await this.createLogsEmbed(
-                fullUserName,
+                MemberObj.user.tag,
                 MemberObj.user.id,
                 infractions,
                 'Infractions'
@@ -134,28 +135,38 @@ export class CheckSlashCommand implements Command {
         } else {
             const noInfractionsEmbed = this.createNoLogsEmbed(
                 data,
-                fullUserName,
+                MemberObj.user.tag,
                 MemberObj.user.id,
                 'Infractions'
             );
             embeds.push(noInfractionsEmbed);
         }
 
-        // if (directs.length > 0) {
-        //     const dmsEmbed = await this.createLogsEmbed(
-        //         fullUserName,
-        //         MemberObj.user.id,
-        //         directs,
-        //         'DMs'
-        //     );
-        //     embeds.push(dmsEmbed);
-        // } else {
-        //     const noDMsEmbed = this.createNoLogsEmbed(data, fullUserName, MemberObj.user.id, 'DMs');
-        //     embeds.push(noDMsEmbed);
-        // }
+        // Create buttons
+        const warnButton = new ButtonBuilder()
+            .setCustomId(Lang.getCom('buttonNames.warn'))
+            .setLabel('Warn')
+            .setStyle(ButtonStyle.Danger);
 
-        // Send all embeds in one message
-        await InteractionUtils.editReply(intr, { embeds });
+        const timeoutButton = new ButtonBuilder()
+            .setCustomId(Lang.getCom('buttonNames.timeout'))
+            .setLabel('Timeout')
+            .setStyle(ButtonStyle.Danger);
+
+        const banButton = new ButtonBuilder()
+            .setCustomId(Lang.getCom('buttonNames.ban'))
+            .setLabel('Ban')
+            .setStyle(ButtonStyle.Danger);
+
+        // Create an action row and add buttons to it
+        const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
+            warnButton,
+            timeoutButton,
+            banButton
+        );
+
+        // Send all embeds and the action row in one message
+        await InteractionUtils.editReply(intr, { embeds, components: [actionRow] });
     }
 
     private async createLogsEmbed(

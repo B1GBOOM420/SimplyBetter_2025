@@ -83,11 +83,13 @@
                 "color": "{{COM:colors.default}}",
                 "footer": {
                     "text": "{{MEMBER}} | {{MEMBER_ID}}"
-                }
+                },
+                "timestamp": "{{TIMEHOLDER}}"
             },
-            "timeoutAction": {
+
+            "createModerationEmbed": {
                 "title": "{{TITLE}}",
-                "description": "```ansi\n\u001b[0;{{FONT_COLOR}}m{{TIMEOUT_ACTION_STRING}}\u001b[0;0m\n\n\u001b[0;30mIf this message seems wrong, let your developer know!\u001b[0;0m```",
+                "description": "```ansi\n\u001b[0;{{FONT_COLOR}}m{{ACTION_STRING}}\u001b[0;0m\n\nModerator: {{MOD_TAG}}```",
                 "color": "{{COLOR}}",
                 "footer": {
                     "text": "{{TARGET_NAME}} | {{TARGET_ID}}"
