@@ -2,7 +2,22 @@ import { REST } from '@discordjs/rest';
 import { Options, Partials } from 'discord.js';
 import { createRequire } from 'node:module';
 
-import { Button } from './buttons/index.js';
+import {
+    Button,
+    WarnUserButton,
+    BanUserButton,
+    TimeoutUserButton,
+    VerifyFalseButton,
+    VerifyTrueButton,
+    AwaitingRoleButton,
+    ConfirmCloseTicketButton,
+    FirstCloseTicketButton,
+    OpenTicketButton,
+    ReportSomeoneButton,
+    UnlistedOptionButton,
+    ConfirmBanUserButton,
+    CancelBanUserButton,
+} from './buttons/index.js';
 import {
     AvatarSlashCommand,
     CheckSlashCommand,
@@ -104,7 +119,24 @@ async function start(): Promise<void> {
 
     // Buttons
     let buttons: Button[] = [
-        // TODO: Add new buttons here
+        // Moderation
+        new WarnUserButton(),
+        new BanUserButton(),
+        new ConfirmBanUserButton(),
+        new CancelBanUserButton(),
+        new TimeoutUserButton(),
+
+        // Verification
+        new VerifyTrueButton(),
+        new VerifyFalseButton(),
+
+        // Ticketing
+        new AwaitingRoleButton(),
+        new FirstCloseTicketButton(),
+        new ConfirmCloseTicketButton(),
+        new ReportSomeoneButton(),
+        new OpenTicketButton(),
+        new UnlistedOptionButton(),
     ];
 
     // Reactions

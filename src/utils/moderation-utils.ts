@@ -550,9 +550,9 @@ export class ModerationUtils {
             );
 
             await MessageUtils.send(targetUser.user, { embeds: [userEmbed] });
-            await targetUser.ban({ deleteMessageSeconds: this.DAY_SECONDS, reason });
             await InteractionUtils.editReply(intr, { embeds: [logEmbed] });
             await MessageUtils.sendToLogChannel(guild, { embeds: [logEmbed] });
+            await targetUser.ban({ deleteMessageSeconds: this.DAY_SECONDS, reason });
         } catch (error) {
             console.error('Error banning user:', error);
             throw new Error('An error occurred while trying to ban the user. Please try again.');

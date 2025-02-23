@@ -125,6 +125,10 @@
             "channelNotFound": {
                 "description": "```ansi\n\u001b[0;31mI can not seem to locate that channel!\nPlease double check the submitted ID / #channelMention\u001b[0;0m\n\nIf this error seems out of the ordinary, let your developer know!```",
                 "color": "{{COM:colors.warning}}"
+            },
+            "buttonConfirmation": {
+                "description": "```ansi\n\u001b[0;33m{{CONFIRMATION_STRING}}\u001b[0;0m```",
+                "color": "{{COM:colors.warning}}"
             }
         },
         "errorEmbeds": {
@@ -185,7 +189,8 @@
             "showAvatar": "avatar",
             "role": "role",
             "check": "check",
-            "timeOut": "timeout"
+            "timeOut": "timeout",
+            "ban": "ban"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined",
@@ -308,6 +313,10 @@
             "pink": "\u001b[0;35m{{PINK_STRING}}\u001b[0;0m",
             "cyan": "\u001b[0;36m{{CYAN_STRING}}\u001b[0;0m",
             "white": "\u001b[0;37m{{WHITE_STRING}}\u001b[0;0m"
+        },
+
+        "buttonValidation": {
+            "pleaseConfirm": "```ansi\n\u001b[0;33m{{CONFIRMATION_STRING}}\u001b[0;0m```"
         }
     }
 }

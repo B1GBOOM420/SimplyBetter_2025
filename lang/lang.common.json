@@ -49,6 +49,7 @@
         "timeout": "timeout-user",
         "ban": "ban-user",
         "confirm-ban": "confirm-ban-user",
+        "cancel-ban": "cancel-ban",
         "verify-false": "verify-false",
         "verify-true": "verify-true",
         "awaiting-role": "awaiting-role",
