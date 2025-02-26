@@ -184,6 +184,7 @@
         "bot": {
             "description": "{{REF:links.templateEmbed}} helps give developers a starting point for new Discord bots, so that much of the initial setup can be avoided and developers can instead focus on meaningful bot features."
         },
+        "moderation": { "base": "Failure to comply with our rules and regulations" },
         "chatCommands": {
             "test": "test",
             "showAvatar": "avatar",

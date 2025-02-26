@@ -1,38 +1,40 @@
-import { ButtonInteraction, ChatInputApplicationCommandData, Locale } from 'discord.js';
+import { ButtonInteraction, ChatInputApplicationCommandData } from 'discord.js';
 import { Button, ButtonDeferType } from '../button.js';
 import { EventData } from '../../models/internal-models.js';
 import { Lang } from '../../services/lang.js';
 import { ClientUtils } from '../../utils/client-utils.js';
-import { ModerationUtils } from '../../utils/moderation-utils.js';
-import { Logger } from '../../services/logger.js';
+import { SecurityUtils } from '../../utils/security-utils.js';
 import { InteractionUtils } from '../../utils/interaction-utils.js';
 
-export class ConfirmBanUserButton implements Button {
-    public ids = [Lang.getCom('buttonNames.confirm-ban')];
+export class WarnUserButton implements Button {
+    public ids = [Lang.getCom('buttonNames.warn')];
     public deferType = ButtonDeferType.REPLY;
     public requireGuild = true;
     public requireEmbedAuthorTag: true;
     public metadata: ChatInputApplicationCommandData = {
-        name: Lang.getCom('buttonNames.confirm-ban'),
+        name: Lang.getCom('buttonNames.warn'),
         description: 'A button shown on the check command to action a user',
         defaultMemberPermissions: ['ManageMessages'],
         dmPermission: false,
     };
 
     public async execute(intr: ButtonInteraction, data: EventData): Promise<void> {
-        const targetText = intr.message.embeds[0].description;
+        const { guild } = intr;
+        const targetText = intr.message.embeds[0].footer.text;
 
         const targetMember = await ClientUtils.findMember(intr.guild, targetText);
 
-        try {
-            await ModerationUtils.banUser(
+        const targetIsModOrHigher = await SecurityUtils.checkModOrHigher(targetMember, guild);
+
+        if (targetIsModOrHigher === true) {
+            await InteractionUtils.send(
                 intr,
-                targetMember,
-                Lang.getRef('moderation.base', data.lang)
+                Lang.getEmbed('errorEmbeds.cantActionMod', data.lang, {
+                    COMMAND: Lang.getRef('chatCommands.warn', data.lang),
+                }),
+                true
             );
-        } catch (error) {
-            Logger.error('ban failure', error);
-            InteractionUtils.editReply(intr, 'Ive encountered and error');
+            return;
         }
     }
 }
