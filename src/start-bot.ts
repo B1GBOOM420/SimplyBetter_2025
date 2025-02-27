@@ -26,6 +26,33 @@ import {
     TimeoutSlashCommand,
 } from './commands/chat/index.js';
 import {
+    AgeGroundFiveReaction,
+    AgeGroundFourReaction,
+    AgeGroundOneReaction,
+    AgeGroundThreeReaction,
+    AgeGroundTwoReaction,
+    AgressivePlaystyleReaction,
+    AsDeploymentReaction,
+    CautiousPlaystyleReaction,
+    EuDeploymentReaction,
+    HasMicReaction,
+    HasNoMicReaction,
+    KillDeathFiveReaction,
+    KillDeathFourReaction,
+    KillDeathOneReaction,
+    KillDeathThreeReaction,
+    KillDeathTwoReaction,
+    MildPlaystyleReaction,
+    NaeDeploymentReaction,
+    NawDeploymentReaction,
+    OcDeploymentReaction,
+    PcPlatformReaction,
+    PlayStationPlatformReaction,
+    Reaction,
+    SaDeploymentReaction,
+    XboxPlatformReaction,
+} from './reactions/index.js';
+import {
     ChatCommandMetadata,
     Command,
     MessageCommandMetadata,
@@ -45,7 +72,6 @@ import {
 import { CustomClient } from './extensions/index.js';
 import { Job } from './jobs/index.js';
 import { Bot } from './models/bot.js';
-import { Reaction } from './reactions/index.js';
 import {
     CommandRegistrationService,
     EventDataService,
@@ -130,7 +156,35 @@ async function start(): Promise<void> {
 
     // Reactions
     let reactions: Reaction[] = [
-        // TODO: Add new reactions here
+        new OcDeploymentReaction(),
+        new EuDeploymentReaction(),
+        new SaDeploymentReaction(),
+        new AsDeploymentReaction(),
+        new NaeDeploymentReaction(),
+        new NawDeploymentReaction(),
+
+        new PcPlatformReaction(),
+        new PlayStationPlatformReaction(),
+        new XboxPlatformReaction(),
+
+        new HasMicReaction(),
+        new HasNoMicReaction(),
+
+        new AgressivePlaystyleReaction(),
+        new MildPlaystyleReaction(),
+        new CautiousPlaystyleReaction(),
+
+        new AgeGroundOneReaction(),
+        new AgeGroundTwoReaction(),
+        new AgeGroundThreeReaction(),
+        new AgeGroundFourReaction(),
+        new AgeGroundFiveReaction(),
+
+        new KillDeathOneReaction(),
+        new KillDeathTwoReaction(),
+        new KillDeathThreeReaction(),
+        new KillDeathFourReaction(),
+        new KillDeathFiveReaction(),
     ];
 
     // Triggers
