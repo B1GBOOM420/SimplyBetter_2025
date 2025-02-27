@@ -97,6 +97,65 @@
                 "timestamp": "{{TIMEHOLDER}}"
             }
         },
+        "ruleEmbeds": {
+            "actualRules": {
+                "title": "__This is an English Only Server__",
+                "color": "{{COM:colors.default}}",
+                "fields": [
+                    {
+                        "name": "*1) __No Discord Links At ALL__*",
+                        "value": "> This includes DM-ing people from this server with Discord links, hiding links in an embed, plain text, etc. \n> \n> **Any form of Discord link will land you a one-way ticket out.**\n‎"
+                    },
+                    {
+                        "name": "*2) __Respect each other__*",
+                        "value": "> *There really shouldn’t be much to say here. We are all human and all should be treated that way.*\n‎"
+                    },
+                    {
+                        "name": "*3) __No Hate Speech / Harassment / Bullying__*",
+                        "value": "> *(This includes offensive usernames, profiles, racist/sexist/derogatory comments)*  \n> ***NOTE: This is a NO TOLERANCE RULE, violation may subject you to a ban.***\n‎"
+                    },
+                    {
+                        "name": "*4) __No 18+ Content__* *(Sexually Explicit / Implicit / Illegal)*",
+                        "value": "> *Again, there shouldn’t be much to explain here.*\n> This includes memes, conversations, profiles, self-promo, etc.\n‎"
+                    },
+                    {
+                        "name": "*5) __No Political Posts / No IRL Gun Glorification__*",
+                        "value": "> Politics and IRL weapons have no place in our server.\n> This also includes usernames and profile pictures.\n‎"
+                    },
+                    {
+                        "name": "*6) __Spamming / Cheating / Hacking will not be tolerated in any form__*",
+                        "value": "> This includes overuse of CAPS, emotes, repeating IDs / text / selling hacks / promoting hacks / and anything else deemed by our team.\n‎"
+                    },
+                    {
+                        "name": "*7) __No Money Exchange / Charity Streams / Paying Tournaments__*",
+                        "value": "> **IT WILL BE DELETED**\n> Begging people to buy you a game or to gift you CP, offering money in exchange for services, promoting your tournaments, etc.\n‎"
+                    },
+                    {
+                        "name": "*8) __No server raiding or Alt accounts__*",
+                        "value": "> **This can include**:\n> Trying to get people from within this server to raid another server with you, creating a new account because you got banned, etc. \n‎"
+                    },
+                    {
+                        "name": "*9) __No Drama or Excessive arguments__*",
+                        "value": "> If things do get too heated, that's what the Mods are here for. When they step in, their word is law. \n‎"
+                    },
+                    {
+                        "name": "*10) __No threats against anyone or the server__*",
+                        "value": "> This is **NOT** taken lightly. Violation could subject you to a ban.\n‎"
+                    },
+                    {
+                        "name": "__***You can also report rule breakers***__",
+                        "value": "> If you see someone breaking any rules, you can report them to <@765376356409671700> via DM. \n> Please provide screenshots of the offense if possible.\n‎\n***__Nicknames__*** \n> If your name has special characters, we may change it to make you taggable.\n‎\n***__Strikes__***\n> **We operate on a 3-strike system - This does NOT mean you can't earn an instant ban. It is at the moderators' discretion.** \n‎\n***__Suggestions__***\n> *If you have any suggestions for things that you would like to see in the server, ways we can better the server, or just general suggestions for channels or anything at all;* \n> ***please use our <#729112274287198269> section, and a mod will respond to you shortly.***\n‎"
+                    }
+                ],
+                "footer": {
+                    "text": "Feel free to invite your friends! We welcome everyone!"
+                }
+            },
+            "agree": {
+                "description": "```ansi\n\u001b[0;32mTo gain access to the server - you must agree to follow our rules & regulations\u001b[0;0m```",
+                "color": "{{COM:colors.default}}"
+            }
+        },
         "validationEmbeds": {
             "cooldownHit": {
                 "description": "You can only run this command {{AMOUNT}} time(s) every {{INTERVAL}}. Please wait before attempting this command again.",
@@ -214,7 +273,8 @@
             "showAvatar": "Show a targets avatar as a larger image",
             "role": "Add / Remove a role from a specified user",
             "check": "Check information gathered about any user",
-            "timeOut": "Temporarily disable target user from: messaging, reacting, joining voice / video calls"
+            "timeOut": "Temporarily disable target user from: messaging, reacting, joining voice / video calls",
+            "ban": "Remove a user, and bar them from coming back in the future"
         },
         "argDescs": {
             "devCommand": "Command.",

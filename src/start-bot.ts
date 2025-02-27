@@ -20,9 +20,9 @@ import {
 } from './buttons/index.js';
 import {
     AvatarSlashCommand,
+    BanSlashCommand,
     CheckSlashCommand,
     RoleSlashCommand,
-    TestCommand,
     TimeoutSlashCommand,
 } from './commands/chat/index.js';
 import {
@@ -31,17 +31,8 @@ import {
     MessageCommandMetadata,
     UserCommandMetadata,
 } from './commands/index.js';
-import {
-    CheckAuthorMessageCommand,
-    TimeoutAuthorCommand,
-    ViewDateSent,
-} from './commands/message/index.js';
-import {
-    AvatarUserCommand,
-    CheckUserCommand,
-    TimeoutUserCommand,
-    ViewDateJoined,
-} from './commands/user/index.js';
+import { CheckAuthorMessageCommand, TimeoutAuthorCommand } from './commands/message/index.js';
+import { AvatarUserCommand, CheckUserCommand, TimeoutUserCommand } from './commands/user/index.js';
 import {
     ButtonHandler,
     CommandHandler,
@@ -98,19 +89,17 @@ async function start(): Promise<void> {
 
     // Commands
     let commands: Command[] = [
-        new TestCommand(),
         new AvatarSlashCommand(),
+        new BanSlashCommand(),
         new RoleSlashCommand(),
         new CheckSlashCommand(),
         new TimeoutSlashCommand(),
 
         // Message Context Commands
-        new ViewDateSent(),
         new CheckAuthorMessageCommand(),
         new TimeoutAuthorCommand(),
 
         // // User Context Commands
-        new ViewDateJoined(),
         new CheckUserCommand(),
         new AvatarUserCommand(),
         new TimeoutUserCommand(),

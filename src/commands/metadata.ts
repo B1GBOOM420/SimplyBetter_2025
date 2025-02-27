@@ -15,13 +15,6 @@ import { Lang } from '../services/index.js';
 export const ChatCommandMetadata: {
     [command: string]: RESTPostAPIChatInputApplicationCommandsJSONBody;
 } = {
-    TEST: {
-        type: ApplicationCommandType.ChatInput,
-        name: Lang.getRef('chatCommands.test', Language.Default),
-        description: Lang.getRef('commandDescs.test', Language.Default),
-        dm_permission: true,
-        default_member_permissions: undefined,
-    },
     SHOWAVATAR: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.showAvatar', Language.Default),
@@ -127,17 +120,32 @@ export const ChatCommandMetadata: {
             },
         ],
     },
+    BAN: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.ban', Language.Default),
+        description: Lang.getRef('commandDescs.ban', Language.Default),
+        dm_permission: false,
+        default_member_permissions: '8192',
+        options: [
+            {
+                type: ApplicationCommandOptionType.String,
+                name: 'user',
+                description: 'The target user you want to ban - @User-mention / User-ID',
+                required: true,
+            },
+            {
+                name: 'reason',
+                description: 'The reason this user going to be banned',
+                type: ApplicationCommandOptionType.String,
+                required: true,
+            },
+        ],
+    },
 };
 
 export const MessageCommandMetadata: {
     [command: string]: RESTPostAPIContextMenuApplicationCommandsJSONBody;
 } = {
-    VIEW_DATE_SENT: {
-        type: ApplicationCommandType.Message,
-        name: Lang.getRef('messageCommands.viewDateSent', Language.Default),
-        default_member_permissions: undefined,
-        dm_permission: true,
-    },
     CHECK: {
         type: ApplicationCommandType.Message,
         name: Lang.getRef('messageCommands.checkMsgAuthor', Language.Default),
@@ -155,12 +163,6 @@ export const MessageCommandMetadata: {
 export const UserCommandMetadata: {
     [command: string]: RESTPostAPIContextMenuApplicationCommandsJSONBody;
 } = {
-    VIEW_DATE_JOINED: {
-        type: ApplicationCommandType.User,
-        name: Lang.getRef('userCommands.viewDateJoined', Language.Default),
-        default_member_permissions: undefined,
-        dm_permission: true,
-    },
     CHECK: {
         type: ApplicationCommandType.User,
         name: Lang.getRef('userCommands.checkUserCommand', Language.Default),

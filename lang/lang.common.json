@@ -35,7 +35,8 @@
         "vote": "https://top.gg/"
     },
     "roles": {
-        "moderator": "1328217502030888970"
+        "moderator": "1328217502030888970",
+        "verification": "1328217510666960958"
     },
     "channels": {
         "logs": "1328721783049687122"
