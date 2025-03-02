@@ -149,7 +149,7 @@ export class CheckSlashCommand implements Command {
             .setStyle(ButtonStyle.Danger);
 
         const timeoutButton = new ButtonBuilder()
-            .setCustomId(Lang.getCom('buttonNames.timeout'))
+            .setCustomId(Lang.getCom('buttonNames.timeOut'))
             .setLabel('Timeout')
             .setStyle(ButtonStyle.Danger);
 

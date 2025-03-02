@@ -20,16 +20,13 @@ export class ConfirmBanUserButton implements Button {
     };
 
     public async execute(intr: ButtonInteraction, data: EventData): Promise<void> {
-        const targetText = intr.message.embeds[0].description;
+        const targetText = intr.message.content;
+        const targetReason = intr.message.content.split(' for ')[1].slice(0, -1);
 
         const targetMember = await ClientUtils.findMember(intr.guild, targetText);
 
         try {
-            await ModerationUtils.banUser(
-                intr,
-                targetMember,
-                Lang.getRef('moderation.base', data.lang)
-            );
+            await ModerationUtils.banUser(intr, targetMember, targetReason);
         } catch (error) {
             Logger.error('ban failure', error);
             InteractionUtils.editReply(intr, 'Ive encountered and error');

@@ -249,7 +249,7 @@
             "showAvatar": "avatar",
             "role": "role",
             "check": "check",
-            "timeOut": "timeout",
+            "timeOut": "timeOut",
             "ban": "ban"
         },
         "userCommands": {

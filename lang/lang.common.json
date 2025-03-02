@@ -47,7 +47,7 @@
     },
     "buttonNames": {
         "warn": "warn-user",
-        "timeout": "timeout-user",
+        "timeOut": "timeout-user",
         "ban": "ban-user",
         "confirm-ban": "confirm-ban-user",
         "cancel-ban": "cancel-ban",

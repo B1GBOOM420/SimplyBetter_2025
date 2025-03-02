@@ -33,7 +33,7 @@ export class TimeoutSlashCommand implements Command {
 
             // Fetch the member object
             const member = await guild.members.fetch(targetUserId);
-            if (!member) {
+            if (!member || member.user.id === intr.user.id) {
                 await InteractionUtils.send(
                     intr,
                     Lang.getEmbed('errorEmbeds.memberNotFound', data.lang),

@@ -1,0 +1,18 @@
+export const MODERATION_REASONS = [
+    { label: 'Hate Speech / Harassment / Bullying', value: 'Hate Speech / Harassment / Bullying' },
+    { label: 'Threatening Behavior', value: 'Threatening Behavior' },
+    { label: 'Disrespectful Conduct', value: 'Disrespectful Conduct' },
+    { label: 'Excessive Arguments / Drama', value: 'Excessive Arguments / Drama' },
+    { label: 'Spamming', value: 'Spamming' },
+    { label: '18+ Content', value: '18+ Content' },
+    { label: 'Political Content', value: 'Political Content' },
+    { label: 'IRL Gun Glorification', value: 'IRL Gun Glorification' },
+    { label: 'Discord Links', value: 'Discord Links' },
+    { label: 'Server Raiding', value: 'Server Raiding' },
+    { label: 'Cheating / Hacking', value: 'Cheating / Hacking' },
+    { label: 'Money Exchange / Begging', value: 'Money Exchange / Begging' },
+    { label: 'Charity Streams', value: 'Charity Streams' },
+    { label: 'Paying Tournaments', value: 'Paying Tournaments' },
+    { label: 'Alt Accounts', value: 'Alt Accounts' },
+    { label: 'Self-Promotion', value: 'Self-Promotion' },
+];
