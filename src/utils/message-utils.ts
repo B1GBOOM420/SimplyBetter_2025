@@ -78,6 +78,19 @@ export class MessageUtils {
     }
 
     /**
+     * Fetches the mod channel for a given guild.
+     * @param {Guild} guild - The guild to fetch the mod channel from.
+     * @returns {Promise<TextChannel | null>} - The mod channel if found, otherwise null.
+     */
+    private static async fetchModChannel(guild: Guild): Promise<TextChannel | null> {
+        const logChannelId = Lang.getCom('channels.mod');
+        const channel = await guild.channels.fetch(logChannelId);
+
+        // Ensure the channel is a text channel
+        return channel?.isTextBased() ? (channel as TextChannel) : null;
+    }
+
+    /**
      * Sends a message to the log channel of a guild.
      * @param {Guild} guild - The guild where the log channel is located.
      * @param {string | EmbedBuilder | BaseMessageOptions} content - The content to send to the log channel.
@@ -105,6 +118,49 @@ export class MessageUtils {
 
             // Send the message to the log channel
             return await logChannel.send(options);
+        } catch (error) {
+            if (
+                error instanceof DiscordAPIError &&
+                typeof error.code === 'number' &&
+                IGNORED_ERRORS.includes(error.code)
+            ) {
+                // Ignore specific errors
+                return;
+            } else {
+                // Re-throw unexpected errors
+                throw error;
+            }
+        }
+    }
+
+    /**
+     * Sends a message to the Mod channel of a guild.
+     * @param {Guild} guild - The guild where the Mod channel is located.
+     * @param {string | EmbedBuilder | BaseMessageOptions} content - The content to send to the mod channel.
+     * @returns {Promise<Message | void>} - The sent message, or void if the message could not be sent.
+     */
+    public static async sendToModChannel(
+        guild: Guild,
+        content: string | EmbedBuilder | BaseMessageOptions
+    ): Promise<Message | void> {
+        const modChannel = await this.fetchModChannel(guild);
+
+        if (!modChannel) {
+            console.warn('Mod channel not found or is not a text channel.');
+            return;
+        }
+
+        try {
+            // Prepare the message options
+            const options: BaseMessageOptions =
+                typeof content === 'string'
+                    ? { content }
+                    : content instanceof EmbedBuilder
+                      ? { embeds: [content] }
+                      : content;
+
+            // Send the message to the log channel
+            return await modChannel.send(options);
         } catch (error) {
             if (
                 error instanceof DiscordAPIError &&

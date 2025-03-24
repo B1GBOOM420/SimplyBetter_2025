@@ -13,7 +13,7 @@ export class AskJgodTrigger implements Trigger {
 
         return (
             !msg.content.includes(Lang.getCom('users.jgod')) &&
-            msg.channel.id === Lang.getCom('channel.askJGOD') &&
+            msg.channel.id === Lang.getCom('channels.askJGOD') &&
             exemptFromTrigger === false
         );
     }

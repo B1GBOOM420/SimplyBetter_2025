@@ -29,8 +29,8 @@ export class TimeoutUserButton implements Button {
     };
 
     public async execute(intr: ButtonInteraction, data: EventData): Promise<void> {
-        const { guild } = intr;
-        const targetText = intr.message.embeds[0].footer.text;
+        const { guild, message } = intr;
+        const targetText = message.embeds[0].footer.text;
 
         const targetMember = await ClientUtils.findMember(intr.guild, targetText);
 
@@ -40,7 +40,7 @@ export class TimeoutUserButton implements Button {
             await InteractionUtils.send(
                 intr,
                 Lang.getEmbed('errorEmbeds.cantActionMod', data.lang, {
-                    COMMAND: Lang.getRef('chatCommands.timeout', data.lang),
+                    COMMAND: Lang.getRef('chatCommands.timeOut', data.lang),
                 }),
                 true
             );

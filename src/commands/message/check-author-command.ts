@@ -3,6 +3,9 @@ import {
     EmbedBuilder,
     PermissionsString,
     MessageContextMenuCommandInteraction,
+    ButtonStyle,
+    ButtonBuilder,
+    ActionRowBuilder,
 } from 'discord.js';
 
 import { Language } from '../../models/enum-helpers/index.js';
@@ -38,7 +41,6 @@ export class CheckAuthorMessageCommand implements Command {
             );
             return;
         }
-        const fullUserName = MemberObj.user.tag;
 
         const dbUserChatData = await UserActionCountSchema.findOne({
             discord_id: MemberObj.user.id,
@@ -65,10 +67,10 @@ export class CheckAuthorMessageCommand implements Command {
 
         // Add the main user info embed
         const userInfoEmbed = Lang.getEmbed('displayEmbeds.check', data.lang, {
-            MOD_NAME: intr.user.tag,
-            MEMBERUSERTAG: fullUserName,
-            AVATAR: MemberObj.user.displayAvatarURL(),
             MEMBERAT: `<@${MemberObj.user.id}>`,
+            MEMBERUSERTAG: MemberObj.user.tag,
+            AVATAR: MemberObj.user.displayAvatarURL(),
+            MOD_NAME: `${intr.user.tag} ( ${intr.user.id} )`,
             MEMBERNICKNAME: NickName,
             JOINDISCORDTIME: MemberObj.user.createdAt.toLocaleString('en-US', {
                 year: 'numeric',
@@ -100,14 +102,17 @@ export class CheckAuthorMessageCommand implements Command {
 
         const posts = moderationsFromDataBase.filter(item => item.type === 'note');
         const infractions = moderationsFromDataBase.filter(
-            item => item.type === 'warn' || item.type === 'mute' || item.type === 'unmute'
+            item =>
+                item.type === 'warn' ||
+                item.type === 'mute' ||
+                item.type === 'unmute' ||
+                item.type === 'timeout'
         );
-        // const directs = moderationsFromDataBase.filter(item => item.type === 'dm');
 
         // Add embeds for logs if they exist
         if (posts.length > 0) {
             const notesEmbed = await this.createLogsEmbed(
-                fullUserName,
+                MemberObj.user.tag,
                 MemberObj.user.id,
                 posts,
                 'Notes'
@@ -116,7 +121,7 @@ export class CheckAuthorMessageCommand implements Command {
         } else {
             const noNotesEmbed = this.createNoLogsEmbed(
                 data,
-                fullUserName,
+                MemberObj.user.tag,
                 MemberObj.user.id,
                 'Notes'
             );
@@ -125,7 +130,7 @@ export class CheckAuthorMessageCommand implements Command {
 
         if (infractions.length > 0) {
             const infractionsEmbed = await this.createLogsEmbed(
-                fullUserName,
+                MemberObj.user.tag,
                 MemberObj.user.id,
                 infractions,
                 'Infractions'
@@ -134,35 +139,47 @@ export class CheckAuthorMessageCommand implements Command {
         } else {
             const noInfractionsEmbed = this.createNoLogsEmbed(
                 data,
-                fullUserName,
+                MemberObj.user.tag,
                 MemberObj.user.id,
                 'Infractions'
             );
             embeds.push(noInfractionsEmbed);
         }
 
-        // if (directs.length > 0) {
-        //     const dmsEmbed = await this.createLogsEmbed(
-        //         fullUserName,
-        //         MemberObj.user.id,
-        //         directs,
-        //         'DMs'
-        //     );
-        //     embeds.push(dmsEmbed);
-        // } else {
-        //     const noDMsEmbed = this.createNoLogsEmbed(data, fullUserName, MemberObj.user.id, 'DMs');
-        //     embeds.push(noDMsEmbed);
-        // }
+        // Create buttons
+        const warnButton = new ButtonBuilder()
+            .setCustomId(Lang.getCom('buttonNames.warn'))
+            .setLabel('Warn')
+            .setStyle(ButtonStyle.Danger);
 
-        const logChannelId = Lang.getCom('channels.logs');
+        const timeoutButton = new ButtonBuilder()
+            .setCustomId(Lang.getCom('buttonNames.timeOut'))
+            .setLabel('Timeout')
+            .setStyle(ButtonStyle.Danger);
 
-        // Send all embeds in one message
-        await InteractionUtils.editReply(
-            intr,
-            `your check has been sent to <#${logChannelId}> :wink:`
+        const banButton = new ButtonBuilder()
+            .setCustomId(Lang.getCom('buttonNames.ban'))
+            .setLabel('Ban')
+            .setStyle(ButtonStyle.Danger);
+
+        // Create an action row and add buttons to it
+        const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
+            warnButton,
+            timeoutButton,
+            banButton
         );
 
-        await MessageUtils.sendToLogChannel(guild, { embeds });
+        // Send all embeds and the action row in one message
+
+        await MessageUtils.sendToModChannel(guild, {
+            embeds,
+            components: [actionRow],
+        });
+
+        await InteractionUtils.editReply(
+            intr,
+            `Your check command has been run in <#${Lang.getCom('channels.mod')}>`
+        );
     }
 
     private async createLogsEmbed(

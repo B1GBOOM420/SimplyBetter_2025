@@ -250,7 +250,8 @@
             "role": "role",
             "check": "check",
             "timeOut": "timeOut",
-            "ban": "ban"
+            "ban": "ban",
+            "warn": "warn"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined",
